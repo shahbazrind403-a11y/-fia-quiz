@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIA Aptitude Archive — Past Paper Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1D33;
+    --ink-2:#132846;
+    --parchment:#F3EFE4;
+    --parchment-2:#e9e2d0;
+    --brass:#B8863B;
+    --brass-bright:#D9A855;
+    --stamp-red:#8C2F26;
+    --slate:#5B6B84;
+    --line:rgba(184,134,59,0.35);
+    --shadow: 0 18px 40px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184,134,59,0.08), transparent 40%),
+      radial-gradient(circle at 85% 0%, rgba(140,47,38,0.08), transparent 35%);
+    color:var(--parchment);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--brass); color:var(--ink); }
+
+  a{color:inherit;}
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,29,51,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .brand{ display:flex; align-items:center; gap:12px; font-family:'Oswald',sans-serif; letter-spacing:2px; text-transform:uppercase; font-size:15px; }
+  .brand .seal{
+    width:34px; height:34px; border-radius:50%; border:2px solid var(--brass);
+    display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace;
+    font-size:11px; color:var(--brass-bright); font-weight:700; flex:none;
+  }
+  nav.links{ display:flex; gap:28px; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; font-family:'Oswald',sans-serif; }
+  nav.links a{ text-decoration:none; color:var(--parchment); opacity:0.75; transition:opacity .2s; border-bottom:1px solid transparent; padding-bottom:2px;}
+  nav.links a:hover{ opacity:1; border-color:var(--brass); }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:90px 28px 70px; position:relative; overflow:hidden; }
+  .hero-inner{ max-width:1180px; margin:0 auto; position:relative; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:3px; color:var(--brass-bright);
+    border:1px solid var(--line); display:inline-block; padding:6px 14px; border-radius:2px; text-transform:uppercase;
+  }
+  h1.title{
+    font-family:'Special Elite', cursive; font-weight:400;
+    font-size:clamp(38px,6vw,72px); line-height:1.05; margin:22px 0 18px;
+    color:var(--parchment); text-shadow:0 2px 0 rgba(0,0,0,.3);
+  }
+  h1.title .accent{ color:var(--brass-bright); }
+  .hero p.sub{ max-width:560px; font-size:16.5px; line-height:1.7; color:#cdd6e4; margin-bottom:34px; }
+  .hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+
+  .btn{
+    font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:1.5px; font-size:13.5px;
+    padding:14px 26px; border-radius:2px; border:1px solid var(--brass); cursor:pointer; text-decoration:none;
+    display:inline-flex; align-items:center; gap:10px; transition:transform .15s, background .2s;
+  }
+  .btn:active{ transform:scale(0.97); }
+  .btn-primary{ background:var(--brass); color:var(--ink); font-weight:600; }
+  .btn-primary:hover{ background:var(--brass-bright); }
+  .btn-ghost{ background:transparent; color:var(--parchment); }
+  .btn-ghost:hover{ background:rgba(184,134,59,0.12); }
+
+  .stat-row{ display:flex; gap:40px; margin-top:56px; flex-wrap:wrap; }
+  .stat{ font-family:'JetBrains Mono',monospace; }
+  .stat b{ display:block; font-size:30px; color:var(--brass-bright); }
+  .stat span{ font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--slate); }
+
+  /* stamp graphic */
+  .stamp{
+    position:absolute; right:10px; top:20px; width:150px; height:150px;
+    border:4px solid var(--stamp-red); border-radius:50%;
+    color:var(--stamp-red); display:flex; align-items:center; justify-content:center;
+    text-align:center; font-family:'Special Elite',cursive; font-size:15px; text-transform:uppercase;
+    transform:rotate(-14deg); opacity:0.85; letter-spacing:1px;
+    box-shadow: 0 0 0 3px rgba(140,47,38,0.15);
+  }
+  @media (max-width:820px){ .stamp{ display:none; } }
+
+  /* ---------- SECTION HEADS ---------- */
+  .section{ padding:70px 0; border-top:1px solid var(--line); }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:38px; flex-wrap:wrap; gap:14px;}
+  .section-head h2{
+    font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:2px; font-size:26px; margin:0;
+    color:var(--parchment); font-weight:600;
+  }
+  .section-head p{ margin:6px 0 0; color:var(--slate); font-size:14px; font-family:'JetBrains Mono',monospace; }
+
+  /* ---------- CASE FILE CARDS ---------- */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:22px; }
+  .file{
+    background:var(--parchment); color:var(--ink); border-radius:3px; padding:24px 22px 20px;
+    box-shadow:var(--shadow); position:relative; overflow:hidden; cursor:pointer;
+    border-top:6px solid var(--brass); transition:transform .2s, box-shadow .2s;
+  }
+  .file:hover{ transform:translateY(-6px); box-shadow:0 26px 50px rgba(0,0,0,.45); }
+  .file .tab{
+    position:absolute; top:0; right:18px; background:var(--brass); color:var(--ink);
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; padding:5px 10px; letter-spacing:1px;
+    border-radius:0 0 4px 4px; font-weight:700;
+  }
+  .file h3{ font-family:'Oswald',sans-serif; font-size:19px; margin:16px 0 6px; text-transform:uppercase; letter-spacing:0.5px;}
+  .file p{ font-size:13px; color:#5a5546; margin:0 0 16px; line-height:1.5; }
+  .file .meta{ display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--stamp-red); border-top:1px dashed #b8ac8c; padding-top:12px; }
+
+  /* ---------- QUIZ MODAL ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(6,13,24,0.86); z-index:100; display:none;
+    align-items:center; justify-content:center; padding:24px; backdrop-filter:blur(4px);
+  }
+  .overlay.active{ display:flex; }
+  .quiz-card{
+    background:var(--parchment); color:var(--ink); width:100%; max-width:680px; max-height:88vh; overflow-y:auto;
+    border-radius:4px; box-shadow:0 30px 80px rgba(0,0,0,.5); position:relative;
+  }
+  .quiz-head{
+    display:flex; justify-content:space-between; align-items:center; padding:20px 26px;
+    border-bottom:2px solid var(--ink); background:var(--parchment-2);
+  }
+  .quiz-head h3{ font-family:'Special Elite',cursive; font-size:20px; margin:0; }
+  .close-x{ background:none; border:none; font-size:22px; cursor:pointer; color:var(--ink); font-family:'JetBrains Mono',monospace;}
+  .progress-bar{ height:5px; background:#d8cfb8; }
+  .progress-fill{ height:100%; background:var(--stamp-red); width:0%; transition:width .3s; }
+  .quiz-body{ padding:28px 26px; }
+  .qmeta{ display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--slate); margin-bottom:14px; text-transform:uppercase; letter-spacing:1px;}
+  #timer{ color:var(--stamp-red); font-weight:700; }
+  .question-text{ font-size:18px; line-height:1.55; margin-bottom:22px; font-weight:600; }
+  .options{ display:flex; flex-direction:column; gap:10px; }
+  .option{
+    border:1.5px solid #cabf9e; padding:13px 16px; border-radius:3px; cursor:pointer; font-size:14.5px;
+    display:flex; gap:10px; align-items:flex-start; transition:background .15s, border-color .15s;
+  }
+  .option:hover{ background:#eae2cb; }
+  .option.selected{ border-color:var(--ink); background:#ddd2ab; font-weight:600; }
+  .option .letter{ font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--stamp-red); flex:none; }
+  .option.correct{ border-color:#2e6b3e; background:#dcedd9; }
+  .option.incorrect{ border-color:var(--stamp-red); background:#f3d9d5; }
+  .quiz-foot{ display:flex; justify-content:space-between; padding:18px 26px 26px; }
+  .quiz-foot .btn{ font-size:12.5px; padding:11px 20px; }
+
+  /* results */
+  .result-stamp{
+    width:150px; height:150px; margin:0 auto 18px; border:5px solid var(--stamp-red); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; transform:rotate(-10deg); color:var(--stamp-red);
+    font-family:'Special Elite',cursive; font-size:22px; text-align:center; text-transform:uppercase;
+  }
+  .result-stamp.pass{ border-color:#2e6b3e; color:#2e6b3e; }
+  .score-line{ text-align:center; font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--slate); margin-bottom:22px;}
+  .review-item{ border-bottom:1px dashed #cabf9e; padding:14px 0; font-size:13.5px; }
+  .review-item .tag{ font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; padding:2px 8px; border-radius:2px; margin-right:8px;}
+  .tag.right{ background:#dcedd9; color:#2e6b3e; }
+  .tag.wrong{ background:#f3d9d5; color:var(--stamp-red); }
+
+  /* ---------- ADD QUESTION PANEL ---------- */
+  .panel{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:6px; padding:34px;
+  }
+  .panel h3{ font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:1.5px; margin-top:0;}
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .form-row.full{ grid-template-columns:1fr; }
+  label{ font-size:11.5px; text-transform:uppercase; letter-spacing:1px; color:var(--slate); font-family:'JetBrains Mono',monospace; display:block; margin-bottom:6px;}
+  input, select, textarea{
+    width:100%; background:var(--ink); border:1px solid var(--line); color:var(--parchment);
+    padding:11px 12px; border-radius:3px; font-family:'Inter',sans-serif; font-size:14px;
+  }
+  input:focus, select:focus, textarea:focus{ outline:none; border-color:var(--brass); }
+  .opt-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+  .radio-row{ display:flex; align-items:center; gap:8px; }
+  .radio-row input{ width:auto; }
+  .msg{ font-family:'JetBrains Mono',monospace; font-size:12.5px; margin-top:14px; color:var(--brass-bright); min-height:18px;}
+
+  footer{ padding:40px 28px; text-align:center; color:var(--slate); font-size:12.5px; font-family:'JetBrains Mono',monospace; border-top:1px solid var(--line);}
+
+  @media (max-width:640px){
+    .form-row, .opt-inputs{ grid-template-columns:1fr; }
+    .nav-inner{ flex-direction:column; gap:14px; }
+    nav.links{ gap:18px; flex-wrap:wrap; justify-content:center;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="seal">FIA</span> Aptitude Archive</div>
+    <nav class="links">
+      <a href="#papers">Case Files</a>
+      <a href="#add">Add Paper</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="stamp">Practice<br>On File</div>
+    <span class="eyebrow">Record No. FIA/2026/ARCHIVE</span>
+    <h1 class="title">Prepare for the <span class="accent">FIA Test</span><br>one case file at a time.</h1>
+    <p class="sub">Practice real-format past papers for the FIA Sub-Inspector &amp; Assistant Director tests — General Knowledge, Pakistan Studies, English, Everyday Science, Computer, and Current Affairs — each timed like the real exam.</p>
+    <div class="hero-actions">
+      <a href="#papers" class="btn btn-primary">Open a Case File →</a>
+      <a href="#add" class="btn btn-ghost">Add Your Own Paper</a>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><b id="stat-papers">0</b><span>Case Files</span></div>
+      <div class="stat"><b id="stat-questions">0</b><span>Questions on Record</span></div>
+      <div class="stat"><b>20 min</b><span>Avg. Paper Time</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="papers">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Case Files — Choose a Paper</h2>
+        <p>// each file is a self-contained quiz, timed and scored</p>
+      </div>
+    </div>
+    <div class="grid" id="papers-grid"></div>
+  </div>
+</section>
+
+<section class="section" id="add">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Add a Question to the Archive</h2>
+        <p>// builds a new case file, or adds to an existing one</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>New Entry</h3>
+      <div class="form-row">
+        <div>
+          <label>Paper / Category</label>
+          <select id="in-category">
+            <option value="">— choose or type new below —</option>
+          </select>
+        </div>
+        <div>
+          <label>Or type a new paper name</label>
+          <input id="in-new-category" placeholder="e.g. Islamic Studies 2024">
+        </div>
+      </div>
+      <div class="form-row full">
+        <div>
+          <label>Question</label>
+          <textarea id="in-question" rows="2" placeholder="Type the question exactly as it should appear..."></textarea>
+        </div>
+      </div>
+      <label>Options (mark the correct one)</label>
+      <div class="opt-inputs">
+        <div class="radio-row"><input type="radio" name="correct" value="0" checked><input id="opt-0" placeholder="Option A"></div>
+        <div class="radio-row"><input type="radio" name="correct" value="1"><input id="opt-1" placeholder="Option B"></div>
+        <div class="radio-row"><input type="radio" name="correct" value="2"><input id="opt-2" placeholder="Option C"></div>
+        <div class="radio-row"><input type="radio" name="correct" value="3"><input id="opt-3" placeholder="Option D"></div>
+      </div>
+      <button class="btn btn-primary" onclick="addQuestion()">File This Question</button>
+      <div class="msg" id="add-msg"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>About This Archive</h2>
+        <p>// how the data is kept</p>
+      </div>
+    </div>
+    <p style="max-width:640px;line-height:1.8;color:#cdd6e4;">
+      This site comes preloaded with sample-format questions across the major FIA test sections. Use <b>Add a Question</b> above to build out your own bank while you're practicing in this browser tab. To make new questions permanent for everyone who visits the published site, add them directly into the <code>QUESTION_BANK</code> object near the top of this file's script — instructions are in the code comments, and in the publishing note your host received alongside this file.
+    </p>
+  </div>
+</section>
+
+<footer>FIA APTITUDE ARCHIVE — BUILT FOR PRACTICE, NOT AFFILIATED WITH THE FEDERAL INVESTIGATION AGENCY</footer>
+
+<!-- QUIZ OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="quiz-card" id="quiz-card">
+    <div class="quiz-head">
+      <h3 id="quiz-title">Case File</h3>
+      <button class="close-x" onclick="closeQuiz()">✕ CLOSE</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="quiz-body" id="quiz-body"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   QUESTION BANK
+   To add permanent questions: add a new key (paper name) or
+   push objects into an existing array below, each shaped as:
+   { q: "question text", options: ["A","B","C","D"], correct: 0 }
+   'correct' is the zero-based index of the right option.
+========================================================= */
+const QUESTION_BANK = {
+  "General Knowledge": [
+    { q:"Which city is known as the 'City of Gardens' in Pakistan?", options:["Multan","Lahore","Faisalabad","Sialkot"], correct:1 },
+    { q:"The Khunjerab Pass connects Pakistan with which country?", options:["Afghanistan","Iran","China","India"], correct:2 },
+    { q:"Which is the longest river in Pakistan?", options:["Chenab","Ravi","Indus","Sutlej"], correct:2 },
+    { q:"Pakistan's national language is:", options:["Punjabi","Urdu","Sindhi","Pashto"], correct:1 },
+    { q:"The Wagah Border is located near which city?", options:["Lahore","Karachi","Multan","Peshawar"], correct:0 },
+  ],
+  "Pakistan Studies": [
+    { q:"The Objectives Resolution was passed in which year?", options:["1947","1949","1956","1962"], correct:1 },
+    { q:"Who was the first Governor-General of Pakistan?", options:["Liaquat Ali Khan","Muhammad Ali Jinnah","Ayub Khan","Iskander Mirza"], correct:1 },
+    { q:"The Lahore Resolution was presented in:", options:["1938","1940","1942","1946"], correct:1 },
+    { q:"Which constitution first declared Pakistan an Islamic Republic?", options:["1956 Constitution","1962 Constitution","1973 Constitution","Interim Constitution 1972"], correct:0 },
+    { q:"East Pakistan separated from Pakistan in:", options:["1970","1971","1972","1973"], correct:1 },
+  ],
+  "English": [
+    { q:"Choose the correctly spelled word:", options:["Recieve","Receive","Recive","Receeve"], correct:1 },
+    { q:"Synonym of 'Abundant':", options:["Scarce","Plentiful","Limited","Rare"], correct:1 },
+    { q:"Antonym of 'Ancient':", options:["Old","Modern","Historic","Aged"], correct:1 },
+    { q:"Fill in the blank: She has been working here ___ 2019.", options:["for","since","from","at"], correct:1 },
+    { q:"Identify the correctly punctuated sentence:", options:["Its a nice day.","It's a nice day.","Its' a nice day.","It is a nice day,"], correct:1 },
+  ],
+  "Everyday Science": [
+    { q:"The unit of electric current is:", options:["Volt","Ohm","Ampere","Watt"], correct:2 },
+    { q:"Which gas is most abundant in the Earth's atmosphere?", options:["Oxygen","Nitrogen","Carbon Dioxide","Hydrogen"], correct:1 },
+    { q:"Human blood is oxygenated in the:", options:["Liver","Kidneys","Lungs","Heart"], correct:2 },
+    { q:"The pH value of pure water is:", options:["5","7","9","3"], correct:1 },
+    { q:"Sound cannot travel through:", options:["Water","Air","Vacuum","Steel"], correct:2 },
+  ],
+  "Computer": [
+    { q:"CPU stands for:", options:["Central Process Unit","Central Processing Unit","Computer Processing Unit","Central Processor Unite"], correct:1 },
+    { q:"Which of these is an input device?", options:["Monitor","Printer","Keyboard","Speaker"], correct:2 },
+    { q:"1 Byte equals:", options:["4 bits","8 bits","16 bits","2 bits"], correct:1 },
+    { q:"RAM stands for:", options:["Random Access Memory","Read Access Memory","Random Available Memory","Read Available Memory"], correct:0 },
+    { q:"Which company developed Windows OS?", options:["Apple","Google","Microsoft","IBM"], correct:2 },
+  ],
+  "Current Affairs": [
+    { q:"SAARC stands for South Asian Association for:", options:["Regional Cooperation","Regional Commerce","Regional Conflict","Regional Council"], correct:0 },
+    { q:"Pakistan became a member of the United Nations in:", options:["1945","1947","1948","1950"], correct:1 },
+    { q:"CPEC is a project between Pakistan and:", options:["USA","Russia","China","Iran"], correct:2 },
+    { q:"The headquarters of FIA is located in:", options:["Karachi","Lahore","Islamabad","Peshawar"], correct:2 },
+    { q:"Which organization publishes the annual Human Development Index?", options:["WHO","UNDP","IMF","World Bank"], correct:1 },
+  ],
+};
+
+let currentPaper = null;
+let currentIndex = 0;
+let userAnswers = [];
+let timerInterval = null;
+let timeLeft = 0;
+
+function renderPapersGrid(){
+  const grid = document.getElementById('papers-grid');
+  grid.innerHTML = '';
+  const names = Object.keys(QUESTION_BANK);
+  let totalQ = 0;
+  names.forEach((name, i)=>{
+    const qs = QUESTION_BANK[name];
+    totalQ += qs.length;
+    const card = document.createElement('div');
+    card.className = 'file';
+    card.onclick = ()=> openQuiz(name);
+    card.innerHTML = `
+      <div class="tab">FILE ${String(i+1).padStart(2,'0')}</div>
+      <h3>${name}</h3>
+      <p>${qs.length} questions on record. Timed practice, instant scoring, full review.</p>
+      <div class="meta"><span>OPEN FILE →</span><span>${qs.length} Q</span></div>
+    `;
+    grid.appendChild(card);
+  });
+  document.getElementById('stat-papers').textContent = names.length;
+  document.getElementById('stat-questions').textContent = totalQ;
+
+  const sel = document.getElementById('in-category');
+  sel.innerHTML = '<option value="">— choose or type new below —</option>' +
+    names.map(n=>`<option value="${n}">${n}</option>`).join('');
+}
+
+function openQuiz(paperName){
+  currentPaper = paperName;
+  currentIndex = 0;
+  userAnswers = new Array(QUESTION_BANK[paperName].length).fill(null);
+  timeLeft = QUESTION_BANK[paperName].length * 45; // 45s per question
+  document.getElementById('quiz-title').textContent = paperName;
+  document.getElementById('overlay').classList.add('active');
+  startTimer();
+  renderQuestion();
+}
+
+function closeQuiz(){
+  document.getElementById('overlay').classList.remove('active');
+  clearInterval(timerInterval);
+}
+
+function startTimer(){
+  clearInterval(timerInterval);
+  timerInterval = setInterval(()=>{
+    timeLeft--;
+    if(timeLeft <= 0){ clearInterval(timerInterval); finishQuiz(); }
+    updateTimerDisplay();
+  }, 1000);
+}
+
+function updateTimerDisplay(){
+  const el = document.getElementById('timer');
+  if(!el) return;
+  const m = Math.floor(timeLeft/60), s = timeLeft%60;
+  el.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+}
+
+function renderQuestion(){
+  const qs = QUESTION_BANK[currentPaper];
+  const q = qs[currentIndex];
+  const body = document.getElementById('quiz-body');
+  document.getElementById('progress-fill').style.width = `${((currentIndex)/qs.length)*100}%`;
+  body.innerHTML = `
+    <div class="qmeta"><span>Question ${currentIndex+1} of ${qs.length}</span><span id="timer">--:--</span></div>
+    <div class="question-text">${q.q}</div>
+    <div class="options" id="options"></div>
+    <div class="quiz-foot">
+      <button class="btn btn-ghost" onclick="prevQ()" ${currentIndex===0?'disabled style="opacity:0.4;cursor:not-allowed;"':''}>← Previous</button>
+      <button class="btn btn-primary" onclick="nextQ()">${currentIndex===qs.length-1?'Submit File →':'Next →'}</button>
+    </div>
+  `;
+  updateTimerDisplay();
+  const optsWrap = document.getElementById('options');
+  const letters = ['A','B','C','D'];
+  q.options.forEach((opt,i)=>{
+    const div = document.createElement('div');
+    div.className = 'option' + (userAnswers[currentIndex]===i ? ' selected':'');
+    div.innerHTML = `<span class="letter">${letters[i]}</span><span>${opt}</span>`;
+    div.onclick = ()=>{ userAnswers[currentIndex]=i; renderQuestion(); };
+    optsWrap.appendChild(div);
+  });
+}
+
+function nextQ(){
+  const qs = QUESTION_BANK[currentPaper];
+  if(currentIndex < qs.length-1){ currentIndex++; renderQuestion(); }
+  else { finishQuiz(); }
+}
+function prevQ(){ if(currentIndex>0){ currentIndex--; renderQuestion(); } }
+
+function finishQuiz(){
+  clearInterval(timerInterval);
+  const qs = QUESTION_BANK[currentPaper];
+  let score = 0;
+  qs.forEach((q,i)=>{ if(userAnswers[i]===q.correct) score++; });
+  const pct = Math.round((score/qs.length)*100);
+  const pass = pct >= 60;
+  document.getElementById('progress-fill').style.width = '100%';
+  const body = document.getElementById('quiz-body');
+  let reviewHtml = qs.map((q,i)=>{
+    const correctAns = q.options[q.correct];
+    const userAns = userAnswers[i]!==null ? q.options[userAnswers[i]] : '— not answered —';
+    const isRight = userAnswers[i]===q.correct;
+    return `<div class="review-item">
+      <span class="tag ${isRight?'right':'wrong'}">${isRight?'CLEARED':'FLAGGED'}</span>
+      <b>${i+1}. ${q.q}</b><br>
+      <span style="color:#5a5546;">Your answer: ${userAns}</span>
+      ${isRight? '' : `<br><span style="color:#2e6b3e;">Correct answer: ${correctAns}</span>`}
+    </div>`;
+  }).join('');
+  body.innerHTML = `
+    <div class="result-stamp ${pass?'pass':''}">${pass?'CASE<br>CLEARED':'RETRY<br>FILE'}</div>
+    <div class="score-line">SCORE: ${score} / ${qs.length} &nbsp;(${pct}%)</div>
+    <div style="max-height:280px;overflow-y:auto;margin-bottom:20px;">${reviewHtml}</div>
+    <div class="quiz-foot" style="padding:0;">
+      <button class="btn btn-ghost" onclick="openQuiz(currentPaper)">↺ Retake File</button>
+      <button class="btn btn-primary" onclick="closeQuiz()">Close File</button>
+    </div>
+  `;
+}
+
+/* ---------- ADD QUESTION FORM ---------- */
+function addQuestion(){
+  const msg = document.getElementById('add-msg');
+  const existing = document.getElementById('in-category').value;
+  const newName = document.getElementById('in-new-category').value.trim();
+  const paperName = newName || existing;
+  const qText = document.getElementById('in-question').value.trim();
+  const opts = [0,1,2,3].map(i=>document.getElementById('opt-'+i).value.trim());
+  const correctIdx = parseInt(document.querySelector('input[name="correct"]:checked').value, 10);
+
+  if(!paperName){ msg.textContent = '⚠ Choose or name a paper/category first.'; return; }
+  if(!qText || opts.some(o=>!o)){ msg.textContent = '⚠ Fill in the question and all four options.'; return; }
+
+  if(!QUESTION_BANK[paperName]) QUESTION_BANK[paperName] = [];
+  QUESTION_BANK[paperName].push({ q:qText, options:opts, correct:correctIdx });
+
+  renderPapersGrid();
+  document.getElementById('in-question').value='';
+  [0,1,2,3].forEach(i=> document.getElementById('opt-'+i).value='');
+  document.getElementById('in-new-category').value='';
+  msg.textContent = `✓ Filed under "${paperName}". This entry lasts for your current browser session — see the About section to make it permanent.`;
+}
+
+renderPapersGrid();
+</script>
+</body>
+</html>
